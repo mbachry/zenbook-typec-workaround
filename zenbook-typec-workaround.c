@@ -65,7 +65,8 @@ static void notrace
 zen_ftrace_cci_handler(unsigned long ip, unsigned long parent_ip,
 		   struct ftrace_ops *fops, struct ftrace_regs *regs)
 {
-	regs->regs.ip = (unsigned long)my_ucsi_acpi_read_cci;
+	struct pt_regs *rg = ftrace_get_regs(regs);
+	rg->ip = (unsigned long)my_ucsi_acpi_read_cci;
 }
 
 static struct ftrace_ops ftrace_cci_ops __read_mostly = {
